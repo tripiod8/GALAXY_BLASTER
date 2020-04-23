@@ -26,6 +26,7 @@ return(this)
 end
 
 function Ship:update(dt)
+    self:handleInput(dt)
     self.animation:update(dt)
 end
 
@@ -34,5 +35,16 @@ function Ship:draw()
 end
 
 function Ship:handleInput()
+    if input:down('left') then
+        self.x = self.x - 2
+    elseif input:down('right') then
+        self.x = self.x + 2
+    end
+
+    if input:down('up') then
+        self.y = self.y - 2
+    elseif input:down('down') then
+        self.y = self.y + 2
+    end
 
 end
