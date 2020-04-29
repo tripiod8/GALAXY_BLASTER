@@ -40,8 +40,8 @@ return(this)
 end
 
 function FireBlaster:fire()
-    local b = FireBolt:Create(self.ship.x, self.ship.y)
-    table.insert(gBullets, b)
+    local f = FireBolt:Create(self.ship.x, self.ship.y)
+    table.insert(gBullets, f)
 
 end
 
