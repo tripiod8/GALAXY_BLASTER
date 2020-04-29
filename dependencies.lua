@@ -10,7 +10,7 @@ anim8 = require('libs/anim8/anim8')
 
 
 -- Game Dependent Lua Files (Can work with only this game)
-
+require('utils')
 require('controls')
 require('bullet')
 require('weapon')

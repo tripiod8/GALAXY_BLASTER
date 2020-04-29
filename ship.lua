@@ -39,15 +39,15 @@ end
 
 function Ship:handleInput()
     if input:down('left') then
-        self.x = self.x - 2
+        self.x = clamp(self.x, 0, 239) - 2
     elseif input:down('right') then
-        self.x = self.x + 2
+        self.x = clamp(self.x, 0, 239) + 2
     end
 
     if input:down('up') then
-        self.y = self.y - 2
+        self.y = clamp(self.y, 1, 250) - 2
     elseif input:down('down') then
-        self.y = self.y + 2
+        self.y = clamp(self.y, 1, 250) + 2
     end
 
     ship.weapon:handleInput(dt)
