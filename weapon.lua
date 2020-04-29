@@ -24,3 +24,32 @@ function BasicBlaster:handleInput(dt)
         self:fire()
     end
 end
+
+---------------------------------------------------------------------
+
+FireBlaster = {}
+FireBlaster.__index = FireBlaster
+
+function FireBlaster:Create(ship) 
+local this = {
+    ship = ship
+}
+
+setmetatable(this, self)
+return(this)
+end
+
+function FireBlaster:fire()
+    local b = FireBolt:Create(self.ship.x, self.ship.y)
+    table.insert(gBullets, b)
+
+end
+
+function FireBlaster:update(dt)
+end
+
+function FireBlaster:handleInput(dt)
+    if input:pressed('fire') then
+        self:fire()
+    end
+end

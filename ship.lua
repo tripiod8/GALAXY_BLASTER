@@ -12,7 +12,9 @@ local this = {
     animation = nil,
     shield = nil,
     health = 5,
-    weapon = nil
+    weaponA = nil,
+    weaponB = nil,
+    currentWeapon = nil
 }
 
 local grid = anim8.newGrid(16, 24, this.image:getDimensions())
@@ -21,7 +23,9 @@ this.animation = anim8.newAnimation(grid(3, '1-2'), 0.15)
 this.x = (love.graphics.getWidth() / 2) / scale - (this.w/2)
 this.y = (love.graphics.getHeight() - this.h*2) / scale
 
-this.weapon = BasicBlaster:Create(this)
+this.weaponA = BasicBlaster:Create(this)
+this.weaponB = FireBlaster:Create(this)
+this.currentWeapon = this.weaponA
 
 setmetatable(this, self)
 return(this)
@@ -30,7 +34,7 @@ end
 function Ship:update(dt)
     self:handleInput(dt)
     self.animation:update(dt)
-    self.weapon:update(dt)
+    self.currentWeapon:update(dt)
 end
 
 function Ship:draw()
@@ -50,5 +54,13 @@ function Ship:handleInput()
         self.y = clamp(self.y, 1, 250) + 2
     end
 
-    ship.weapon:handleInput(dt)
+    if input:pressed('c') then
+        if self.currentWeapon ~= self.weaponB then
+            self.currentWeapon = self.weaponB
+        else
+            self.currentWeapon = self.weaponA
+        end 
+    end
+
+    ship.currentWeapon:handleInput(dt)
 end

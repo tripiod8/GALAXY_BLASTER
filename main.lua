@@ -1,5 +1,3 @@
-
-
 function love.load() 
     scale = 2
     require('dependencies')
