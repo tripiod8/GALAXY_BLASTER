@@ -10,6 +10,9 @@ function love.load()
     scrollSpeed = 40
 
     ship = Ship:Create()
+
+    gBullets = {}
+
 end
 
 function love.update(dt)
@@ -18,6 +21,9 @@ function love.update(dt)
         bgOffset = 0
     end
     ship:update(dt)
+    for i, b in ipairs(gBullets) do 
+        b:update(dt)
+    end
     -- web based debugging system
     require('libs/lovebird').update()
 end
@@ -26,5 +32,8 @@ function love.draw()
     love.graphics.scale(scale, scale)
     love.graphics.draw(bgImage, 0, bgOffset - bgImageHeight)
     love.graphics.draw(bgImage, 0, bgOffset)
+    for i, b in ipairs(gBullets) do 
+        b:draw()
+    end
     ship:draw()
 end

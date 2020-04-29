@@ -21,6 +21,8 @@ this.animation = anim8.newAnimation(grid(3, '1-2'), 0.15)
 this.x = (love.graphics.getWidth() / 2) / scale - (this.w/2)
 this.y = (love.graphics.getHeight() - this.h*2) / scale
 
+this.weapon = BasicBlaster:Create(this)
+
 setmetatable(this, self)
 return(this)
 end
@@ -28,6 +30,7 @@ end
 function Ship:update(dt)
     self:handleInput(dt)
     self.animation:update(dt)
+    self.weapon:update(dt)
 end
 
 function Ship:draw()
@@ -47,4 +50,5 @@ function Ship:handleInput()
         self.y = self.y + 2
     end
 
+    ship.weapon:handleInput(dt)
 end
