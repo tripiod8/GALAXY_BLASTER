@@ -12,7 +12,8 @@ end
 
 function BasicBlaster:fire()
     local b = Bullet:Create(self.ship.x, self.ship.y)
-    table.insert(gBullets, b)
+    --table.insert(gameWorld.bullets, b)
+    gameWorld:addBullet(b)
 
 end
 
