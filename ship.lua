@@ -42,16 +42,18 @@ function Ship:draw()
 end
 
 function Ship:handleInput()
+    local targetX = self.x
+    local targetY = self.y
     if input:down('left') then
-        self.x = clamp(self.x, 0, 239) - 2
+        targetX = clamp(self.x, 0, 239) - 2
     elseif input:down('right') then
-        self.x = clamp(self.x, 0, 239) + 2
+        targetX = clamp(self.x, 0, 239) + 2
     end
 
     if input:down('up') then
-        self.y = clamp(self.y, 1, 250) - 2
+        targetY = clamp(self.y, 1, 250) - 2
     elseif input:down('down') then
-        self.y = clamp(self.y, 1, 250) + 2
+        targetY = clamp(self.y, 1, 250) + 2
     end
 
     if input:pressed('c') then
@@ -62,5 +64,22 @@ function Ship:handleInput()
         end 
     end
 
+    local actualX, actualY, cols, len = collisionWorld:move(self, targetX, targetY, shipColFilter)
+    self.x = actualX
+    self.y = actualY
+    if len > 0 then
+        for i, c in ipairs(cols) do
+            if c.other.type == "collectible" then
+                local newWeaponType = gWeapon[c.other.weapon]
+                self.currentWeapon = newWeaponType:Create(self)
+                gameWorld:removeCollectible(c.other)
+            end
+        end
+    end
+
     ship.currentWeapon:handleInput(dt)
+end
+
+function shipColFilter(object, other)
+    return('cross')
 end

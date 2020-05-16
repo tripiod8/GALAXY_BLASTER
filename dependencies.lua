@@ -1,5 +1,5 @@
 -- Third Party Libraries
-bunp = require('libs/bump')
+bump = require('libs/bump')
 Input = require('libs/Input')
 inspect = require('libs/inspect')
 log = require('libs/log')

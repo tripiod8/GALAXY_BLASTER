@@ -42,7 +42,8 @@ end
 
 function FireBlaster:fire()
     local f = FireBolt:Create(self.ship.x, self.ship.y)
-    table.insert(gBullets, f)
+    --table.insert(gBullets, f)
+    gameWorld:addBullet(f)
 
 end
 
@@ -54,3 +55,9 @@ function FireBlaster:handleInput(dt)
         self:fire()
     end
 end
+
+gWeapon = {
+    spread = FireBlaster,
+    machine = machineGun,
+    wave = waveBlaster
+}

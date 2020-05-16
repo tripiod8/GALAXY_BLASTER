@@ -7,9 +7,12 @@ function love.load()
     bgOffset = 0
     scrollSpeed = 40
 
+    collisionWorld = bump.newWorld()
+
     ship = Ship:Create()
-    c = Collectible:Create()
-    gameWorld = GameWorld:Create()
+    collisionWorld:add(ship, ship.x, ship.y, ship.w, ship.h)
+    c = Collectible:Create(collectibleDefs.spreadBlaster)
+    gameWorld = GameWorld:Create(collisionWorld)
     gameWorld:addCollectible(c)
 
     

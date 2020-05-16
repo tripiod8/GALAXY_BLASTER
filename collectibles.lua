@@ -13,13 +13,15 @@ collectibleDefs = {
     }
 }
 
-Collectible = {}
+Collectible = {type="collectible"}
 Collectible.__index = Collectible
 
 function Collectible:Create(def)
     local this = {
         x = 0,
-        y=0,
+        y = 0,
+        w = 16,
+        h = 16,
         image = love.graphics.newImage('assets/graphics/spritesheets/power-up.png'),
         animation = nil,
         yVelocity = 15,
@@ -35,7 +37,12 @@ end
 
 function Collectible:update(dt)
     self.animation:update(dt)
-    self.y = self.y + self.yVelocity * dt
+    local targetX = self.x
+    local targetY = self.y
+    targetY = self.y + self.yVelocity * dt
+    local actualX, actualY, cols, len = collisionWorld:move(self, targetX, targetY, shipColFilter)
+    self.x = actualX
+    self.y = actualY
 end
 
 function Collectible:draw()

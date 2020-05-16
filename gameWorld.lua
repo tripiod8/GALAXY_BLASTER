@@ -1,7 +1,7 @@
 GameWorld = {}
 GameWorld.__index = GameWorld
 
-function GameWorld:Create()
+function GameWorld:Create(colWorld)
     local this = {
         bullets = {},
         collectibles = {},
@@ -10,7 +10,8 @@ function GameWorld:Create()
         score = 0,
         lives = 3,
         extraLifeCounter = 0,
-        extraLifePoints = 50000
+        extraLifePoints = 50000,
+        collisionWorld = colWorld
     }
 
     setmetatable(this, self)
@@ -48,18 +49,32 @@ function GameWorld:draw()
 end
 
 function GameWorld:addBullet(b)
+    self.collisionWorld:add(b, b.x, b.y, b.w, b.h)
     table.insert(self.bullets, b)
 end
 
 function GameWorld:addCollectible(c)
+    self.collisionWorld:add(c, c.x, c.y, c.w, c.h)
     table.insert(self.collectibles, c)
 end
 
+function GameWorld:removeCollectible(c)
+    self.collisionWorld:remove(c)
+    for i, collectible in ipairs(self.collectibles) do
+        if c == collectible then
+            table.remove(self.collectibles, i)
+            return
+        end
+    end
+end
+
 function GameWorld:addObstacles(o)
+    self.collisionWorld:add(o, o.x, o.y, o.w, o.h)
     table.insert(self.obstacles, o)
 end
 
 function GameWorld:addenemies(e)
+    self.collisionWorld:add(e, e.x, e.y, e.w, e.h)
     table.insert(self.enemies, e)
 end
 
