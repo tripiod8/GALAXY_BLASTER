@@ -66,12 +66,20 @@ this.animation = anim8.newAnimation(grid('1-2', 1), 0.15)
     return(this)
 end
 
+function FireBolt:isDead()
+    return(self.x<0 or self.x>512 or self.y<0 or self.y>554)
+end
+
 function FireBolt:update(dt)
     self.animation:update(dt)
     local targetX = self.x
     local targetY = self.y
     targetY = self.y + self.yVelocity * dt
     targetX = self.x + self.xVelocity * dt
+
+    local actualX, actualY, cols, len = collisionWorld:move(self, targetX, targetY, shipColFilter)
+    self.x = actualX
+    self.y = actualY
 end
 
 function FireBolt:draw()

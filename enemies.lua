@@ -36,7 +36,7 @@ function Enemy:Create(def, x, y)
         score = def.score,
         image = love.graphics.newImage(def.sprite),
         animation = nil,
-        fireRate = 0.5,
+        fireRate = 0.1,
         fireTimer = 0.5
     }
 
@@ -52,6 +52,12 @@ function Enemy:takeHit()
 end
 
 function Enemy:update(dt)
+    self.fireTimer = self.fireTimer - dt
+    if self.fireTimer <= 0 then
+        self:fire()
+        self.fireTimer = self.fireRate + math.random() * 2
+    end
+
     local targetX = self.x
     local targetY = self.y
 
@@ -80,4 +86,10 @@ end
 
 function Enemy:draw()
     self.animation:draw(self.image, self.x, self.y)
+end
+
+function Enemy:fire()
+    local bulletX = math.floor((self.x + self.w) / 2 - 8)
+    local bulletY = self.y + self.h + 2
+    local b = Bullet:Create(self.x + (self.w/4), bulletY, 0, 140)
 end

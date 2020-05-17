@@ -12,7 +12,7 @@ function HUD:Create(gameWorld, ship)
 end
 
 function HUD:draw()
-    love.graphics.print('Lives: ' .. self.gameWorld.lives, 80, 80)
-    love . graphics.print('Score: ' .. self.gameWorld.score, 80, 120)
-    love.graphics.print('Weapon: ' .. self.ship.currentWeapon.name, 10, 554/2-12)
+    love.graphics.print('Lives: ' .. self.gameWorld.lives, 5, 10)
+    love . graphics.print('Score: ' .. self.gameWorld.score, 160, 10)
+    love.graphics.print('Weapon: ' .. self.ship.currentWeapon.name, 85, 554/2-12)
 end
