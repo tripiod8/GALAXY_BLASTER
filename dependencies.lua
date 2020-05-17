@@ -21,5 +21,6 @@ require('hud')
 require('sounds')
 require('enemies')
 require('explosion')
+require('shield')
 
 -- Game Independent Lua Files  (Can work with any game)

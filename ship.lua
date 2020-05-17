@@ -11,6 +11,7 @@ local this = {
     image = love.graphics.newImage('assets/graphics/spritesheets/ship.png'),
     animation = nil,
     shield = nil,
+    shieldActive = false,
     health = 5,
     weaponA = nil,
     weaponB = nil,
@@ -27,6 +28,8 @@ this.weaponA = BasicBlaster:Create(this)
 this.weaponB = FireBlaster:Create(this)
 this.currentWeapon = this.weaponA
 
+this.shield = Shield:Create(this)
+
 setmetatable(this, self)
 return(this)
 end
@@ -39,6 +42,9 @@ end
 
 function Ship:draw()
     self.animation:draw(self.image, self.x, self.y)
+    if self.shieldActive then
+        self.shield:draw()
+    end
 end
 
 function Ship:handleInput()
@@ -62,6 +68,13 @@ function Ship:handleInput()
         else
             self.currentWeapon = self.weaponA
         end 
+    end
+    if input:down('e') then
+        self.shieldActive = true
+        self.shield:update(dt)
+        --self.shield.duration = self.shield.duration - dt
+    else
+        self.shieldActive = false
     end
 
     local actualX, actualY, cols, len = collisionWorld:move(self, targetX, targetY, shipColFilter)

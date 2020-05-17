@@ -43,7 +43,7 @@ end
 
 -----------------------------------------------------------
 
-FireBolt = {}
+FireBolt = {type='bullet'}
 FireBolt.__index = FireBolt
 
 function FireBolt:Create(x, y, xVelocity, yVelocity) 

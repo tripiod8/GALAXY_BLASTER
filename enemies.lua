@@ -73,6 +73,8 @@ function Enemy:update(dt)
                 self:takeHit()
                 if self.hp == 0 then
                     gameWorld:removeEnemy(self)
+                    e = Enemy:Create(gEnemies.small, 94, 0)
+                     gameWorld:addEnemy(e)
                     local f = Explosion:Create(self.x, self.y)
                     gameWorld:addEffect(f)
                     gameWorld:updateScore(self.score)
