@@ -94,4 +94,5 @@ function Enemy:fire()
     local bulletX = math.floor((self.x + self.w) / 2 - 8)
     local bulletY = self.y + self.h + 2
     local b = Bullet:Create(self.x + (self.w/4), bulletY, 0, 140)
+    gameWorld:addBullet(b)
 end

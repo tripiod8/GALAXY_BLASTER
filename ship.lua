@@ -87,6 +87,9 @@ function Ship:handleInput()
                 c.other.action(gameWorld, self)
                 gameWorld:removeCollectible(c.other)
             end
+            if c.other.type == 'bullet' then
+                log.trace('shoot')
+            end
         end
     end
 
