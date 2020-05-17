@@ -1,7 +1,9 @@
 function love.load() 
     scale = 2
-    require('dependencies')
     love.graphics.setDefaultFilter('nearest', 'nearest')
+    dwFont = love.graphics.newFont('assets/PrStart.ttf', 8)
+    love.graphics.setFont(dwFont)
+    require('dependencies')
     bgImage = love.graphics.newImage('assets/graphics/backgrounds/space-background.png')
     bgImageWidth, bgImageHeight = bgImage:getDimensions()
     bgOffset = 0
@@ -11,11 +13,15 @@ function love.load()
 
     ship = Ship:Create()
     collisionWorld:add(ship, ship.x, ship.y, ship.w, ship.h)
-    c = Collectible:Create(collectibleDefs.spreadBlaster)
+    c = Collectible:Create(collectibleDefs.fireBlaster)
     gameWorld = GameWorld:Create(collisionWorld)
     gameWorld:addCollectible(c)
 
-    
+    e = Enemy:Create(gEnemies.small, 94, 0)
+    gameWorld:addEnemy(e)
+
+    hud = HUD:Create(gameWorld, ship)
+
 end
 
 function love.update(dt)
@@ -36,4 +42,5 @@ function love.draw()
     love.graphics.draw(bgImage, 0, bgOffset)
     ship:draw()
     gameWorld:draw()
+    hud:draw()
 end

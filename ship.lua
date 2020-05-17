@@ -70,8 +70,8 @@ function Ship:handleInput()
     if len > 0 then
         for i, c in ipairs(cols) do
             if c.other.type == "collectible" then
-                local newWeaponType = gWeapon[c.other.weapon]
-                self.currentWeapon = newWeaponType:Create(self)
+                Sounds.powerup:play()
+                c.other.action(gameWorld, self)
                 gameWorld:removeCollectible(c.other)
             end
         end

@@ -1,15 +1,21 @@
 collectibleDefs = {
     spreadBlaster = {
         frames = {'3-4', 1},
-        weapon = 'spread'
+        action = function(gameWorld, ship)
+            ship.currentWeapon = BasicBlaster:Create(ship)
+        end
     },
-    machineBlaster = {
+    fireBlaster = {
         frames = {'3-4', 2},
-        weapon = 'machine'
+        action = function(gameWorld, ship)
+            ship.currentWeapon = FireBlaster:Create(ship)
+        end
     },
-    waveBlaster = {
+    extraLife = {
         frames = {'1-2', 1},
-        weapon = 'wave'
+        action = function(gameWorld, ship)
+            gameWorld:addLife()
+        end
     }
 }
 
@@ -25,7 +31,7 @@ function Collectible:Create(def)
         image = love.graphics.newImage('assets/graphics/spritesheets/power-up.png'),
         animation = nil,
         yVelocity = 15,
-        weapon = def.weapon
+        action = def.action
     }
 
     local grid = anim8.newGrid(16, 16, this.image:getDimensions())

@@ -7,6 +7,7 @@ function GameWorld:Create(colWorld)
         collectibles = {},
         obstacles = {},
         enemies = {},
+        effects = {},
         score = 0,
         lives = 3,
         extraLifeCounter = 0,
@@ -31,6 +32,12 @@ function GameWorld:update(dt)
     for i, e in ipairs(self.enemies) do 
         e:update(dt)
     end
+    for i, f in ipairs(self.effects) do 
+        f:update(dt)
+        if f:isDead() then
+            self:removeEffect(f)
+        end
+    end
 end
 
 function GameWorld:draw()
@@ -45,6 +52,24 @@ function GameWorld:draw()
     end
     for i, e in ipairs(self.enemies) do 
         e:draw()
+    end
+    for i, f in ipairs(self.effects) do 
+        f:draw()
+    end
+end
+-- API Calls
+
+function GameWorld:addEffect(f)
+    table.insert(self.effects, f)
+end
+
+function GameWorld:removeEffect(f)
+    self.collisionWorld:remove(f)
+    for i, effect in ipairs(self.effects) do
+        if f == effect then
+            table.remove(self.effects, i)
+            return
+        end
     end
 end
 
@@ -73,9 +98,19 @@ function GameWorld:addObstacles(o)
     table.insert(self.obstacles, o)
 end
 
-function GameWorld:addenemies(e)
+function GameWorld:addEnemy(e)
     self.collisionWorld:add(e, e.x, e.y, e.w, e.h)
     table.insert(self.enemies, e)
+end
+
+function GameWorld:removeEnemy(e)
+    self.collisionWorld:remove(e)
+    for i, enemy in ipairs(self.enemies) do
+        if e == enemy then
+            table.remove(self.enemies, i)
+            return
+        end
+    end
 end
 
 function GameWorld:updateScore(scoreIncrease)
@@ -86,3 +121,10 @@ function GameWorld:updateScore(scoreIncrease)
         self.extraLifeCounter = self.extraLifeCounter - self.extraLifePoints
     end
 end
+
+function GameWorld:addLife()
+    self.lives = self.lives + 1
+end
+
+
+

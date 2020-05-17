@@ -1,4 +1,4 @@
-Bullet = {}
+Bullet = {type='bullet', bulletType='normal'}
 Bullet.__index = Bullet
 
 function Bullet:Create(x, y, xVelocity, yVelocity) 
@@ -23,8 +23,14 @@ end
 
 function Bullet:update(dt)
     self.animation:update(dt)
-    self.y = self.y + self.yVelocity * dt
-    self.x = self.x + self.xVelocity * dt
+    local targetX = self.x
+    local targetY = self.y
+    targetY = self.y + self.yVelocity * dt
+    targetX = self.x + self.xVelocity * dt
+
+    local actualX, actualY, cols, len = collisionWorld:move(self, targetX, targetY, shipColFilter)
+    self.x = actualX
+    self.y = actualY
 end
 
 function Bullet:draw()
@@ -58,8 +64,10 @@ end
 
 function FireBolt:update(dt)
     self.animation:update(dt)
-    self.y = self.y + self.yVelocity * dt
-    self.x = self.x + self.xVelocity * dt
+    local targetX = self.x
+    local targetY = self.y
+    targetY = self.y + self.yVelocity * dt
+    targetX = self.x + self.xVelocity * dt
 end
 
 function FireBolt:draw()
