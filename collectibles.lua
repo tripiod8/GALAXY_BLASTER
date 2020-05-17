@@ -22,10 +22,10 @@ collectibleDefs = {
 Collectible = {type="collectible"}
 Collectible.__index = Collectible
 
-function Collectible:Create(def)
+function Collectible:Create(def, x, y)
     local this = {
-        x = 0,
-        y = 0,
+        x = x or 0,
+        y = y or 0,
         w = 16,
         h = 16,
         image = love.graphics.newImage('assets/graphics/spritesheets/power-up.png'),

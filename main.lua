@@ -13,9 +13,11 @@ function love.load()
 
     ship = Ship:Create()
     collisionWorld:add(ship, ship.x, ship.y, ship.w, ship.h)
-    c = Collectible:Create(collectibleDefs.fireBlaster)
+    c = Collectible:Create(collectibleDefs.fireBlaster, 0, 0)
+    c2 = Collectible:Create(collectibleDefs.extraLife, 30, -40)
     gameWorld = GameWorld:Create(collisionWorld)
     gameWorld:addCollectible(c)
+    gameWorld:addCollectible(c2)
 
     e = Enemy:Create(gEnemies.small, 94, 0)
     gameWorld:addEnemy(e)

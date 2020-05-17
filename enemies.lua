@@ -35,7 +35,9 @@ function Enemy:Create(def, x, y)
         hp = def.hp,
         score = def.score,
         image = love.graphics.newImage(def.sprite),
-        animation = nil
+        animation = nil,
+        fireRate = 0.5,
+        fireTimer = 0.5
     }
 
     local grid = anim8.newGrid(def.width, def.height, this.image:getDimensions())

@@ -20,8 +20,15 @@ function GameWorld:Create(colWorld)
 end
 
 function GameWorld:update(dt)
-    for i, b in ipairs(self.bullets) do 
+    --for i, b in ipairs(self.bullets) do 
+      --  b:update(dt)
+    --end
+    for i=#self.bullets, 1, -1 do
+        local b = self.bullets[i]
         b:update(dt)
+        if b:isDead() then
+            table.remove(self.bullets, i)
+        end
     end
     for i, c in ipairs(self.collectibles) do 
         c:update(dt)
@@ -32,10 +39,19 @@ function GameWorld:update(dt)
     for i, e in ipairs(self.enemies) do 
         e:update(dt)
     end
-    for i, f in ipairs(self.effects) do 
+    -- have to convert loops above to loop below
+
+    --for i, f in ipairs(self.effects) do 
+      --  f:update(dt)
+        --if f:isDead() then
+          --  self:removeEffect(f)
+        --end
+    --end
+    for i=#self.effects, 1, -1 do
+        local f = self.effects[i]
         f:update(dt)
         if f:isDead() then
-            self:removeEffect(f)
+            table.remove(self.effects, i)
         end
     end
 end
@@ -64,7 +80,7 @@ function GameWorld:addEffect(f)
 end
 
 function GameWorld:removeEffect(f)
-    self.collisionWorld:remove(f)
+    --self.collisionWorld:remove(f)
     for i, effect in ipairs(self.effects) do
         if f == effect then
             table.remove(self.effects, i)

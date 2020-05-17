@@ -21,6 +21,10 @@ this.animation = anim8.newAnimation(grid('1-2', 2), 0.15)
     return(this)
 end
 
+function Bullet:isDead()
+    return(self.x<0 or self.x>512 or self.y<0 or self.y>554)
+end
+
 function Bullet:update(dt)
     self.animation:update(dt)
     local targetX = self.x

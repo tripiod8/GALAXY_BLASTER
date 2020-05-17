@@ -1,4 +1,4 @@
-BasicBlaster = {}
+BasicBlaster = {name = 'Basic Blaster'}
 BasicBlaster.__index = BasicBlaster
 
 function BasicBlaster:Create(ship) 
@@ -28,7 +28,7 @@ end
 
 ---------------------------------------------------------------------
 
-FireBlaster = {}
+FireBlaster = {name = 'Fire Blaster'}
 FireBlaster.__index = FireBlaster
 
 function FireBlaster:Create(ship) 
